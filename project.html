@@ -1,0 +1,180 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
+    <script>
+     AFRAME.registerComponent('modify-materials', {
+    init: function () {
+      // Wait for model to load.
+      this.el.addEventListener('model-loaded', () => {
+        // Grab the mesh / scene.
+        const obj = this.el.getObject3D('mesh');
+        // Go over the submeshes and modify materials we want.
+        obj.traverse(node => {
+          if (node.name.indexOf('ship') !== -1) {
+            node.material.color.set('black');
+          }
+        });
+      });
+    }
+  });
+  
+      </script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="bg" src="img/bg.jpg">
+        <img id="p1" src="img/p1.png">
+        <img id="p2" src="img/p2.jpg">
+        <a-asset-item id="cityModel" src="https://cdn.aframe.io/test-models/models/glTF-2.0/virtualcity/VC.gltf">
+        <a-asset-item id="ufo1Model" response-type="arraybuffer" src="model/ufo2.glb">
+        <a-asset-item id="astronautModel" response-type="arraybuffer" src="model/astronaut.glb">
+        <a-asset-item id="astronaut2Model" response-type="arraybuffer" src="model/astronaut2.glb">
+        <a-asset-item id="alienModel" response-type="arraybuffer" src="model/alien.glb">
+        <a-asset-item id="ufoModel" src="model/ufo.obj">
+        <a-asset-item id="ufoModelMtl" src="model/ufo.mtl">
+          
+        </a-asset-item>
+      </a-assets>
+
+      <a-sky color="#ECFFFF" src="#bg" radius="40"></a-sky>
+      <a-camera>
+        <a-cursor></a-cursor>
+      </a-camera>
+      <a-sphere position="0 10 -5"
+          animation__rotation="property: rotation; to: 0 360 0; dur: 15000; easing: linear; loop: true;"
+          src="#p1"
+          ></a-sphere>
+      <a-sphere position="-20 13 -10"
+          animation__rotation="property: rotation; to: 0 360 0; dur: 15000; easing: linear; loop: true;"
+          src="#p2"
+          ></a-sphere>   
+          <a-sound src="#backgroundMusic" autoplay="true" loop="true" volume="1.5"></a-sound>    
+
+      <audio id="backgroundMusic" src="else/music.mp3" autoplay="true" loop="true"></audio>
+      
+      <a-entity gltf-model="#cityModel" modify-materials>
+        <a-entity
+        obj-model="obj: #ufoModel; mtl: #ufoModelMtl"
+        position="-10 7 10"
+        scale="0.01 0.01 0.01"
+        animation__position="property: position; to: 13 13 -10; dur: 5500; easing: linear; loop: true"
+        animation__rotation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+      </a-entity>
+
+      <a-entity gltf-model="#astronautModel" scale="1.5 1.5 1.5" animation-mixer="clip:Armature|Armature.001Action; loop:infinite" 
+      position="3 0 1.5" rotation="0 -100 0">
+      </a-entity>
+
+      <a-entity gltf-model="#astronaut2Model" scale="1 1 1" animation-mixer="clip:Animation; loop:infinite" 
+      position="18 0 -13.5" rotation="0 -100 0">
+      </a-entity>
+
+      <a-entity gltf-model="#ufo1Model" scale="0.4  0.4 0.4" animation-mixer="clip:Hovering" 
+      position="-20 3 1" rotation="0 -90 0">
+      </a-entity>
+
+      <a-entity gltf-model="#alienModel" scale="0.8 0.8 0.8" animation-mixer="clip:mixamo.com; loop:infinite" 
+      position="1  0.7 -6.5" rotation="0 180 0">
+      </a-entity>
+
+      <!---------------------------------------------------------------------------------------------------------------------------->
+      <!--Title-->
+      <a-image src="img/title_pic.jpg" position="0.5 -3.5 -2.2" rotation="0 0 0" width="2" height="2" shadow
+      animation__position="property: position; to: 0.5 3 -2.2; dur: 2000; easing: linear; loop: false"></a-image>
+      <a-text value="SECRETS OF THE UNIVERSE" position="0 -5 -2.2" color= "#FFDF00" 
+      animation="property: position; to: -0.8 1.5 -2.2; dur: 2000; easing: linear; loop: false" ></a-text>
+
+      <a-text value="GROUP. NEED TO SLEEP" position="0 -5 -2.2" color= "white" 
+      animation="property: position; to: -0.7 1 -2.2; dur: 2000; easing: linear; loop: false" ></a-text>    
+
+      <a-text value="10 Thing that u don't know about universe & ufo" position="3 -5 4" color= "#FFDF00"
+      rotation="0 -180 0" animation="property: position; to: 3 2 4;" ></a-text>
+
+      <a-text value="SECRETS OF UNIVERSE & UFO----------------->" position="-7 -5 6.5" color= "#FFDF00" 
+      rotation="0 180 0" animation="property: position; to: -7 2 6.5;"></a-text>
+      
+      <a-text value="-----------------Continues----------------->" position="-25 -5 -5" color= "#FFDF00"
+      rotation="0 60 0" animation="property: position; to: -25 3 -5;"></a-text>
+
+      <a-text value="<------------------------------------------" position="-13 -5 -5" color= "#FFDF00"
+      rotation="0 -90 0" animation="property: position; to: -10 3 -9.5;"></a-text>
+
+      <a-text value="Congratulations! You've come to the end"
+      rotation="0 -90 0" position="18 3.5 -15.5" color= "#FFDF00"></a-text>
+      <a-text value="Thank you for your attention"
+      rotation="0 -90 0" position="18 3.1 -15" color= "#FFDF00"></a-text>
+
+        <!--------------------------------------------------------------------------------------------------->
+
+      <!--Image-->
+      <a-image src="img/s1.jpg" position="-19 -5 5" rotation="0 90 0" width="2" height="2" shadow
+      animation__position="property: position; to: -19 3 5; dur: 15000; easing: linear; loop: false"></a-image>
+      <a-text value="1. Neutron stars can spin at a rate\n of 600 rotations per second" 
+      position="-19 -5 6.5" color= "#FFDF00" rotation="0 90 0"
+      animation="property: position; to: -19 1.5 6.5; dur: 15000; easing: linear; loop: false" ></a-text>
+      
+      <a-image src="img/s2.jpg" position="-21 -5 -5.2" rotation="0 0 0" width="2" height="2" shadow
+      animation__position="property: position; to: -21 3 -5.2; dur: 18000; easing: linear; loop: false"></a-image>
+      <a-text value="2. There is Floating water in Space" position="-22.6 -5 -5" color= "#FFDF00" rotation="0 0 0"
+      animation="property: position; to: -22.6 1.8 -5; dur: 18000; easing: linear; loop: false" ></a-text>
+
+      <a-image src="img/s3.jpg" position="-13.9 -5 -10.2" rotation="0 -90 0" width="2" height="2" shadow
+      animation__position="property: position; to: -13.9 3 -10.2; dur: 22500; easing: linear; loop: false"></a-image>
+      <a-text value="3. Pluto is smaller than the United States" position="-14 -5 -12" color= "#FFDF00" rotation="0 -90 0"
+      animation="property: position; to: -14 1.8 -12; dur: 22500; easing: linear; loop: false" ></a-text>
+
+      <a-image src="img/s4.jpg" position="-15 -5 -5" rotation="0 -180 0" width="2" height="2" shadow
+      animation__position="property: position; to: -15 3 -5; dur: 22500; easing: linear; loop: false"></a-image>
+      <a-text value="4. Space is completely silent" position="-13.5 -5 -5" color= "#FFDF00" rotation="0 -180 0"
+      animation="property: position; to: -13.5 1.8 -5; dur: 22500; easing: linear; loop: false" ></a-text>
+
+      <a-image src="img/s5.jpg" position="-10 -5 -15" rotation="0 0 0" width="2" height="2" shadow
+      animation__position="property: position; to: -10 3 -15; dur: 24500; easing: linear; loop: false"></a-image>
+      <a-text value="5. The most popular theory for alien visitors\n is that they are from other planets and galaxies" 
+      position="-10 -5 -15" color= "#FFDF00" rotation="0 0 0"
+      animation="property: position; to: -12 1.6 -15; dur: 24500; easing: linear; loop: false" ></a-text>
+
+      <a-image src="img/s6.jpg" position="-5.5 -5 -15" rotation="0 0 0" width="2" height="2" shadow
+      animation__position="property: position; to: -5.5 3 -15; dur: 24500; easing: linear; loop: false"></a-image>
+      <a-text value="6. Ancient Roman scholars wrote\n about strange aerial sightings" 
+      position="-5.5 -5 -15" color= "#FFDF00" rotation="0 0 0"
+      animation="property: position; to: -7 1.6 -15; dur: 24500; easing: linear; loop: false" ></a-text>
+
+      <a-image src="img/s7.jpg" position="-3 -5 -7" rotation="0 -90 0" width="2" height="2" shadow
+      animation__position="property: position; to: -3 3 -7; dur: 26000; easing: linear; loop: false"></a-image>
+      <a-text value="7.  The most famous UFO sighting is known\n as the “Roswell Incident” which occurred in 1947" 
+      position="-3 -5 -7" color= "#FFDF00" rotation="0 -90 0"
+      animation="property: position; to: -3.3 1.5 -9; dur: 26000; easing: linear; loop: false" ></a-text>
+
+      <a-image src="img/s8.jpg" position="-6.6 -5 1" rotation="0 180 0" width="2" height="2" shadow
+      animation__position="property: position; to: -6.6 3 1; dur: 26000; easing: linear; loop: false"></a-image>
+      <a-text value="8.  Alien abduction' stories\n may come from lucid dreaming"
+      position="-6.6 -5 1" color= "#FFDF00" rotation="0 180 0"
+      animation="property: position; to: -5 1.5 1; dur: 26000; easing: linear; loop: false" ></a-text>  
+
+      <a-image src="img/s9.jpg" position=" 0 -5 -21" rotation="0 0 0" width="2" height="2" shadow
+      animation__position="property: position; to:  0 3.2 -19.5; dur: 28000; easing: linear; loop: false"></a-image>
+      <a-text value="9.  The most popular UFO sighting location is\n in the USA, followed by Mexico and Canada"
+      position="0 -5 -19.5" color= "#FFDF00" rotation="0 0 0"
+      animation="property: position; to:  -2.5 1.9 -19.5; dur: 28000; easing: linear; loop: false" ></a-text>
+
+      <a-image src="img/s10.jpg" position="7 -5 -21" rotation="0 0 0" width="2" height="2" shadow
+      animation__position="property: position; to: 7 3.2 -21; dur: 28000; easing: linear; loop: false"></a-image>
+      <a-text value="10. The Apollo astronauts' footprints on the moon will probably stay there for at least 100 million years" 
+      position="7 -5 -21" color= "#FFDF00" rotation="0 0 0"
+      animation="property: position; to: 4.5 1.8 -21; dur: 28000; easing: linear; loop: false" ></a-text>
+
+      <a-image src="img/pic1.jpeg" position=" 20 5 -18" rotation="0 125 0" width="4" height="4" shadow></a-image>
+      <a-image src="img/pic2.jpg" position=" 22 5 -13.5" rotation="0 90 0" width="4" height="4" shadow></a-image>
+      <a-image src="img/pic3.jpg" position=" 20 5 -9" rotation="0 -125 0" width="4" height="4" shadow></a-image>
+
+      <a-image src="img/pic4.jpg" position=" 2.5 2.5 -13.8" rotation="0 0 0" width="3" height="2" shadow></a-image>
+      <a-image src="img/pic5.jpg" position=" 0 2.5 -13.5" rotation="0 25 0" width="2" height="2" shadow></a-image>
+      <a-image src="img/pic6.jpg" position=" 4.9 2.5 -13.5" rotation="0 -25 0" width="1.5" height="2" shadow></a-image>
+
+    </a-scene>
+
+  </body>
+</html>
